@@ -1,7 +1,7 @@
-export default function Home() {
-  return (
-    <div className="align-center flex-1 justify-center bg-red-700 p-5">
-      <h1> hello world!</h1>
-    </div>
-  );
-}
+import Header from "./_components/Header";
+
+const Home = () => {
+  return <Header />;
+};
+
+export default Home;
