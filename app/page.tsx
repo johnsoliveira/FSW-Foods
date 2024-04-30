@@ -53,7 +53,10 @@ const Home = async () => {
       </div>
 
       <div className="px-5 pt-6">
-        <PromoBanner src="/promo-banner-02.png" alt="Até 30% de desconto" />
+        <PromoBanner
+          src="/promo-banner-02.png"
+          alt="a partir de R$ 17,90 em lanches"
+        />
       </div>
       <div className="space-y-4 py-6">
         <div className="flex items-center justify-between px-5">
