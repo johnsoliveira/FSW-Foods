@@ -51,6 +51,10 @@ const Home = async () => {
 
         <ProductList products={products} />
       </div>
+
+      <div className="px-5 pt-6">
+        <PromoBanner src="/promo-banner-02.png" alt="Até 30% de desconto" />
+      </div>
       <div className="space-y-4 py-6">
         <div className="flex items-center justify-between px-5">
           <h2 className="font-semibold">Restaurantes recomendados</h2>
