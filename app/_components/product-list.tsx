@@ -16,7 +16,7 @@ interface ProductsListProps {
 const ProductList = async ({ products }: ProductsListProps) => {
   return (
     <>
-      <div className="flex h-[200px] gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
+      <div className="flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
         {products.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}

@@ -17,7 +17,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ product }: ProductItemProps) => {
   return (
-    <div className="h-[150px] min-w-[150px] space-y-2">
+    <div className="w-[150px] min-w-[150px] space-y-2">
       <div className="relative h-[150px] w-full">
         <Image
           src={product.imageUrl}
