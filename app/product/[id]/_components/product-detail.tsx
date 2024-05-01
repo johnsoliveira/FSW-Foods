@@ -59,7 +59,6 @@ const ProductDetail = ({
           {product.restaurant.name}
         </span>
       </div>
-
       <h1 className="mt-1 px-5 text-xl font-semibold">{product.name}</h1>
       <div className="flex justify-between px-5">
         <div>
@@ -127,6 +126,9 @@ const ProductDetail = ({
       <div className="mt-6 space-y-3 ">
         <h3 className="px-5 font-semibold">Sobremesas</h3>
         <ProductList products={complementaryProducts} />
+      </div>
+      <div className="mt-6 px-5">
+        <Button className="w-full font-semibold">Adicionar á sacola</Button>
       </div>
     </div>
   );
