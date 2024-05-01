@@ -105,7 +105,7 @@ const ProductDetail = ({
                 {formatCurrency(Number(product.restaurant.deliveryFee))}
               </p>
             ) : (
-              <p className="text-xs text-muted-foreground">Grátis</p>
+              <p className="text-xs font-semibold">Grátis</p>
             )}
           </div>
           <div className="flex flex-col items-center">
