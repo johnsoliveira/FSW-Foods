@@ -1,6 +1,7 @@
 "use client";
 
 import Cart from "@/app/_components/cart";
+import DeliveryInfo from "@/app/_components/delivery-info";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductList from "@/app/_components/product-list";
 import {
@@ -14,7 +15,6 @@ import {
   AlertDialogTitle,
 } from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
-import { Card } from "@/app/_components/ui/card";
 import {
   Sheet,
   SheetContent,
@@ -27,12 +27,7 @@ import {
   formatCurrency,
 } from "@/app/_helpers/price";
 import { Prisma } from "@prisma/client";
-import {
-  BikeIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  TimerIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
 
@@ -59,8 +54,6 @@ const ProductDetail = ({
     useState(false);
 
   const { addProductToCart, products } = useContext(CartContext);
-
-  console.log(products, "Produtos");
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
     addProductToCart({ product, quantity, emptyCart });
@@ -136,31 +129,7 @@ const ProductDetail = ({
           </div>
         </div>
         <div className="px-5">
-          <Card className="mt-6 flex justify-around py-3">
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <span className="text-xs">Entrega</span>
-                <BikeIcon size={14} />
-              </div>
-              {Number(product.restaurant.deliveryFee) > 0 ? (
-                <p className="text-xs font-semibold">
-                  {formatCurrency(Number(product.restaurant.deliveryFee))}
-                </p>
-              ) : (
-                <p className="text-xs font-semibold">Grátis</p>
-              )}
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <span className="text-xs">Tempo</span>
-                <TimerIcon size={14} />
-              </div>
-
-              <p className="text-xs font-semibold">
-                {product.restaurant.deliveryTimeMinutes} min
-              </p>
-            </div>
-          </Card>
+          <DeliveryInfo restaurant={product.restaurant} />
         </div>
         <div className="mt-6 space-y-3 px-5">
           <h3 className="font-semibold">Sobre</h3>
