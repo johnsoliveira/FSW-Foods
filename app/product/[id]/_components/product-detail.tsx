@@ -3,6 +3,16 @@
 import Cart from "@/app/_components/cart";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductList from "@/app/_components/product-list";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
 import {
@@ -45,14 +55,28 @@ const ProductDetail = ({
 }: ProductDetailProps) => {
   const [quantity, setQuantity] = useState(1);
   const [openToCart, setOpenToCart] = useState(false);
+  const [isOpenConfirmationDialog, setIsOpenConfirmationDialog] =
+    useState(false);
 
   const { addProductToCart, products } = useContext(CartContext);
 
   console.log(products, "Produtos");
 
-  const handleToCartClick = () => {
-    addProductToCart(product, quantity);
+  const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
+    addProductToCart({ product, quantity, emptyCart });
     setOpenToCart(true);
+  };
+
+  const handleToCartClick = () => {
+    const hasDifferentRestaurantProduct = products.some(
+      (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
+    );
+
+    if (hasDifferentRestaurantProduct) {
+      return setIsOpenConfirmationDialog(true);
+    }
+
+    addToCart({ emptyCart: false });
   };
 
   const handleIncreaseQuantityClick = () => setQuantity((prev) => prev + 1);
@@ -162,6 +186,28 @@ const ProductDetail = ({
           </SheetContent>
         </Sheet>
       </div>
+      <AlertDialog
+        open={isOpenConfirmationDialog}
+        onOpenChange={setIsOpenConfirmationDialog}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Você só pode adicionar itens de um restaurante por vez
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Deseja mesmo adicionar este produto a sacola? Isso limpará sua
+              sacola atual
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={() => addToCart({ emptyCart: true })}>
+              Esvaziar sacola e adicionar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
