@@ -54,7 +54,7 @@ const Header = () => {
               <div className="flex justify-between pt-6">
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarImage src={data?.user?.image} />
+                    <AvatarImage src={data?.user?.image as string} />
                     <AvatarFallback>
                       {data?.user?.name?.split("")[0][0]}
                       {data?.user?.name?.split("")[1][0]}
@@ -84,24 +84,28 @@ const Header = () => {
             </div>
 
             <div className="space-y-2">
-              <Link href="/">
-                <Button
-                  variant="ghost"
-                  className="flex w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                >
+              <Button
+                variant="ghost"
+                className="flex w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                asChild
+              >
+                <Link href="/">
                   <HomeIcon size={16} />
                   <span className="block"> Início</span>
-                </Button>
-              </Link>
+                </Link>
+              </Button>
 
               {data?.user && (
                 <>
                   <Button
                     variant="ghost"
                     className="flex w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                    asChild
                   >
-                    <ScrollTextIcon size={16} />
-                    <span className="block">Meus Pedidos</span>
+                    <Link href="/my-orders">
+                      <ScrollTextIcon size={16} />
+                      <span className="block">Meus Pedidos</span>
+                    </Link>
                   </Button>
 
                   <Button
