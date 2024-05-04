@@ -151,7 +151,7 @@ const ProductDetail = ({
                 Sacola
               </SheetTitle>
             </SheetHeader>
-            <Cart />
+            <Cart setIsOpen={setOpenToCart} />
           </SheetContent>
         </Sheet>
       </div>
