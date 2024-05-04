@@ -13,31 +13,50 @@ model Restaurant {
   imageUrl            String
   deliveryFee         Decimal    @db.Decimal(10, 2)
   deliveryTimeMinutes Int
-  categories          Category[]
+  orders              Order[]
   products            Product[]
+  categories          Category[] @relation("CategoryToRestaurant")
 }
 
 model Category {
   id          String       @id @default(uuid())
   name        String
   imageUrl    String
-  restaurants Restaurant[]
-  products    Product[]
   createdAt   DateTime     @default(now())
+  products    Product[]
+  restaurants Restaurant[] @relation("CategoryToRestaurant")
 }
 
 model Product {
   id                 String     @id @default(uuid())
   name               String
-  description        String
   imageUrl           String
+  description        String
   price              Decimal    @db.Decimal(10, 2)
   discountPercentage Int        @default(0)
   restaurantId       String
-  restaurant         Restaurant @relation(fields: [restaurantId], references: [id])
   categoryId         String
-  category           Category   @relation(fields: [categoryId], references: [id])
   createdAt          DateTime   @default(now())
+  orderId            String?
+  category           Category   @relation(fields: [categoryId], references: [id])
+  Order              Order?     @relation(fields: [orderId], references: [id])
+  restaurant         Restaurant @relation(fields: [restaurantId], references: [id])
+}
+
+model Order {
+  id                  String      @id @default(uuid())
+  totalPrice          Decimal     @db.Decimal(10, 2)
+  subtotalPrice       Decimal     @db.Decimal(10, 2)
+  totalDiscounts      Decimal     @db.Decimal(10, 2)
+  restaurantId        String
+  userId              String
+  deliveryFee         Decimal     @db.Decimal(10, 2)
+  createdAt           DateTime    @default(now())
+  status              OrderStatus
+  deliveryTimeMinutes Int
+  restaurant          Restaurant  @relation(fields: [restaurantId], references: [id])
+  user                User        @relation(fields: [userId], references: [id])
+  Product             Product[]
 }
 
 model Account {
@@ -46,15 +65,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -76,6 +94,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  orders        Order[]
   accounts      Account[]
   sessions      Session[]
 
@@ -89,4 +108,12 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+enum OrderStatus {
+  CONFIRMED
+  PREPARING
+  DELIVERING
+  FINISHED
+  CANCELED
 }
