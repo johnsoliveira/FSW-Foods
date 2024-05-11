@@ -45,7 +45,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
   const router = useRouter();
 
   const handleRedoOrderClick = () => {
-    for (const orderProduct of order.products) {
+    for (const orderProduct of order?.products) {
       addProductToCart({
         product: { ...orderProduct.product, restaurant: order.restaurant },
         quantity: orderProduct.quantity,

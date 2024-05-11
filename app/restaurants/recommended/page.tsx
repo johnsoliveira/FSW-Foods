@@ -1,4 +1,4 @@
-import Header from "@/app/_components/header";
+import Header from "@/app/_components/Header";
 import RestaurantItem from "@/app/_components/restaurant-item";
 import { db } from "@/app/_lib/prisma";
 

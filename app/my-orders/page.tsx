@@ -1,4 +1,4 @@
-import Header from "../_components/header";
+import Header from "../_components/Header";
 import { db } from "../_lib/prisma";
 import { authOptions } from "../_lib/auth";
 import { getServerSession } from "next-auth";

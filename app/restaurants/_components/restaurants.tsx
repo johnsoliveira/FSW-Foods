@@ -36,6 +36,13 @@ const Restaurants = () => {
             />
           ))}
         </div>
+        {restaurants.length <= 0 && (
+          <div className="flex items-center justify-center">
+            <h1 className="text-lg font-semibold">
+              Não foi encontrado nenhum restaurante com esse nome {searchFor}
+            </h1>
+          </div>
+        )}
       </div>
     </>
   );
