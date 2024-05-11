@@ -1,5 +1,5 @@
 import Search from "./_components/search";
-import Header from "./_components/header";
+import Header from "./_components/Header";
 import CategoryList from "./_components/category-list";
 import ProductList from "./_components/product-list";
 import { Button } from "./_components/ui/button";
