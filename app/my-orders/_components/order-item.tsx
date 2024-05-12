@@ -47,7 +47,6 @@ const OrderItem = ({ order }: OrderItemProps) => {
   const handleRedoOrderClick = () => {
     for (const orderProduct of order?.products) {
       addProductToCart({
-        // @ts-ignore
         product: {
           ...orderProduct.product,
           restaurant: order.restaurant,
@@ -96,10 +95,10 @@ const OrderItem = ({ order }: OrderItemProps) => {
 
         <div className="space-y-3">
           {order.products.map((product) => (
-            <div key={product.id} className="flex items-center gap-2 ">
+            <div key={product?.id} className="flex items-center gap-2 ">
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground">
                 <span className="block text-xs text-white">
-                  {product.quantity}
+                  {product?.quantity}
                 </span>
               </div>
               <span className="block text-xs text-muted-foreground">
