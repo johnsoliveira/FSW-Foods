@@ -56,7 +56,7 @@ const ProductDetail = ({
   const { addProductToCart, products } = useContext(CartContext);
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
-    addProductToCart({ product: { ...product, quantity }, emptyCart });
+    addProductToCart({ product: { ...product }, quantity, emptyCart });
     setOpenToCart(true);
   };
 
