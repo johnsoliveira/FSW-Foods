@@ -48,10 +48,10 @@ const OrderItem = ({ order }: OrderItemProps) => {
     for (const orderProduct of order?.products) {
       addProductToCart({
         product: {
-          ...orderProduct.product,
-          restaurant: order.restaurant,
-          quantity: orderProduct.quantity,
+          ...orderProduct.product!,
+          restaurant: order.restaurant!,
         },
+        quantity: orderProduct.quantity,
       });
     }
 
